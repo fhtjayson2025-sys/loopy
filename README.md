@@ -20,6 +20,8 @@ claude --plugin-dir ./loopy
 
 ## Usage
 
+### Option 1: Natural Language
+
 Just talk naturally:
 
 ```
@@ -28,15 +30,25 @@ Just talk naturally:
 "Run loopy to refactor this module, max 10 iterations"
 ```
 
-Loopy will ask clarifying questions if you don't specify:
-- **Max iterations** - How many times to retry
-- **End goal** - What signals completion
+Loopy will ask clarifying questions if you don't specify iterations or end goal.
+
+### Option 2: Slash Commands
+
+```
+/loopy Build a REST API --max-iterations 20
+/loopy Fix auth bugs --completion-promise "tests pass"
+```
+
+**Options:**
+- `--max-iterations <n>` - Stop after N iterations
+- `--completion-promise <text>` - Stop when this phrase is output
 
 ### Cancel
 
+Natural language or slash command:
 ```
 "Stop loopy"
-"Cancel the loop"
+/cancel-loopy
 ```
 
 ## How It Works
