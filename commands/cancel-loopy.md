@@ -1,7 +1,6 @@
 ---
 description: "Cancel active Loopy loop"
 allowed-tools: ["Bash"]
-hide-from-slash-command-tool: "true"
 ---
 
 # Cancel Loopy
