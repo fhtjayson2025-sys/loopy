@@ -1,0 +1,13 @@
+{
+  "name": "loopy-marketplace",
+  "owner": {
+    "name": "fhtjayson2025-sys"
+  },
+  "plugins": [
+    {
+      "name": "loopy",
+      "source": "./",
+      "description": "Natural language iterative development loops"
+    }
+  ]
+}

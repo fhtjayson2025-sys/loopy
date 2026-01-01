@@ -1,5 +1,6 @@
 {
   "name": "loopy",
+  "version": "1.0.0",
   "description": "Natural language iterative development loops. Say 'start a loopy' to begin an AI loop that persists until your task is complete.",
   "author": {
     "name": "You",
