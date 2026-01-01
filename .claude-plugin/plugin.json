@@ -1,8 +1,8 @@
 {
-  "name": "ralph-wiggum",
-  "description": "Implementation of the Ralph Wiggum technique - continuous self-referential AI loops for interactive iterative development. Run Claude in a while-true loop with the same prompt until task completion.",
+  "name": "loopy",
+  "description": "Natural language iterative development loops. Say 'start a loopy' to begin an AI loop that persists until your task is complete.",
   "author": {
-    "name": "Anthropic",
-    "email": "support@anthropic.com"
+    "name": "You",
+    "email": "you@example.com"
   }
 }
