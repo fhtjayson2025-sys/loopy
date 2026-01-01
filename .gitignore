@@ -1,0 +1,29 @@
+# Local development
+.claude/
+*.local.md
+*.local.json
+
+# State files
+loopy-loop.local.md
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Editor
+*.swp
+*.swo
+*~
+.idea/
+.vscode/
+
+# Logs
+*.log
+
+# Node (if any)
+node_modules/
+
+# Test artifacts
+test-output/
+*.tmp
