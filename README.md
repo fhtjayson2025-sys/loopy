@@ -5,7 +5,17 @@ Natural language iterative development loops for Claude Code. Say "start a loopy
 ## Installation
 
 ```bash
-claude plugins install github:fhtjayson2025-sys/loopy
+# Add the plugin marketplace
+claude plugin marketplace add fhtjayson2025-sys/loopy
+
+# Install the plugin
+claude plugin install loopy
+```
+
+Or clone and load directly:
+```bash
+git clone https://github.com/fhtjayson2025-sys/loopy.git
+claude --plugin-dir ./loopy
 ```
 
 ## Usage
