@@ -8,7 +8,9 @@ argument-hint: "PROMPT [--max-iterations N] [--completion-promise TEXT]"
 Run the setup script:
 
 ```!
-"${CLAUDE_PLUGIN_ROOT}/scripts/setup-loopy.sh" $ARGUMENTS
+"${CLAUDE_PLUGIN_ROOT}/scripts/setup-loopy.sh" <<'LOOPY_ARGS'
+$ARGUMENTS
+LOOPY_ARGS
 ```
 
 Check the output above:

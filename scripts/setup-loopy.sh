@@ -5,63 +5,35 @@
 
 set -eo pipefail
 
-# Parse arguments
-PROMPT_PARTS=()
+# Read prompt from stdin (heredoc-safe, avoids shell quoting issues)
+PROMPT=""
 MAX_ITERATIONS=0
 COMPLETION_PROMISE="null"
 
-# Parse options and positional arguments
-while [[ $# -gt 0 ]]; do
-  case $1 in
-    -h|--help)
-      cat << 'HELP_EOF'
-Loopy - Natural language iterative development loops
+# Read from stdin
+if [[ ! -t 0 ]]; then
+  PROMPT=$(cat)
+fi
 
-USAGE:
-  /loopy [PROMPT...] [OPTIONS]
+# Parse options from the prompt text (--max-iterations N, --completion-promise 'TEXT')
+if [[ -n "$PROMPT" ]]; then
+  # Extract --max-iterations
+  if [[ "$PROMPT" =~ --max-iterations[[:space:]]+([0-9]+) ]]; then
+    MAX_ITERATIONS="${BASH_REMATCH[1]}"
+    PROMPT="${PROMPT/--max-iterations ${BASH_REMATCH[1]}/}"
+  fi
 
-ARGUMENTS:
-  PROMPT...    Initial prompt to start the loop
+  # Extract --completion-promise (single or double quoted)
+  if [[ "$PROMPT" =~ --completion-promise[[:space:]]+[\'\"]([^\'\"]+)[\'\"] ]]; then
+    COMPLETION_PROMISE="${BASH_REMATCH[1]}"
+    PROMPT="${PROMPT/--completion-promise [\'\"]*[\'\"]/}"
+  elif [[ "$PROMPT" =~ --completion-promise[[:space:]]+([^[:space:]]+) ]]; then
+    COMPLETION_PROMISE="${BASH_REMATCH[1]}"
+    PROMPT="${PROMPT/--completion-promise ${BASH_REMATCH[1]}/}"
+  fi
 
-OPTIONS:
-  --max-iterations <n>           Maximum iterations (default: ask user)
-  --completion-promise '<text>'  Promise phrase for completion
-  -h, --help                     Show this help message
-
-EXAMPLES:
-  /loopy Build a todo API --completion-promise 'DONE' --max-iterations 20
-  /loopy --max-iterations 10 Fix the auth bug
-HELP_EOF
-      exit 0
-      ;;
-    --max-iterations)
-      if [[ -z "${2:-}" ]]; then
-        echo "Error: --max-iterations requires a number" >&2
-        exit 1
-      fi
-      MAX_ITERATIONS="$2"
-      shift 2
-      ;;
-    --completion-promise)
-      if [[ -z "${2:-}" ]]; then
-        echo "Error: --completion-promise requires text" >&2
-        exit 1
-      fi
-      COMPLETION_PROMISE="$2"
-      shift 2
-      ;;
-    *)
-      PROMPT_PARTS+=("$1")
-      shift
-      ;;
-  esac
-done
-
-# Join prompt parts (handle empty array safely)
-if [[ ${#PROMPT_PARTS[@]} -gt 0 ]]; then
-  PROMPT="${PROMPT_PARTS[*]}"
-else
-  PROMPT=""
+  # Trim whitespace
+  PROMPT=$(echo "$PROMPT" | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')
 fi
 
 # If no prompt, tell Claude to ask

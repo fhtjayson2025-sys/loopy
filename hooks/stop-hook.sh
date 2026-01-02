@@ -133,7 +133,10 @@ NEXT_ITERATION=$((ITERATION + 1))
 # Extract prompt (everything after the closing ---)
 # Skip first --- line, skip until second --- line, then print everything after
 # Use i>=2 instead of i==2 to handle --- in prompt content
+# Trim leading/trailing whitespace to avoid JSON issues
 PROMPT_TEXT=$(awk '/^---$/{i++; next} i>=2' "$RALPH_STATE_FILE")
+# Remove leading blank lines
+PROMPT_TEXT=$(echo "$PROMPT_TEXT" | sed -n '/[^[:space:]]/,$p')
 
 if [[ -z "$PROMPT_TEXT" ]]; then
   echo "⚠️  Loopy: State file corrupted or incomplete" >&2
