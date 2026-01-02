@@ -4,19 +4,52 @@ Natural language iterative development loops for Claude Code. Say "start a loopy
 
 ## Installation
 
+### Option 1: Plugin Marketplace (Recommended)
+
 ```bash
-# Add the plugin marketplace
-claude plugin marketplace add fhtjayson2025-sys/loopy
+# Add the loopy marketplace
+claude plugins add-registry https://raw.githubusercontent.com/fhtjayson2025-sys/loopy/main/marketplace.json
 
 # Install the plugin
-claude plugin install loopy
+claude plugins install loopy
 ```
 
-Or clone and load directly:
+### Option 2: Direct from GitHub
+
 ```bash
+# Clone the repository
+git clone https://github.com/fhtjayson2025-sys/loopy.git ~/.claude/plugins/loopy
+
+# Restart Claude Code to load the plugin
+```
+
+### Option 3: Load for Single Session
+
+```bash
+# Clone anywhere and load with --plugin-dir
 git clone https://github.com/fhtjayson2025-sys/loopy.git
 claude --plugin-dir ./loopy
 ```
+
+### Option 4: Manual Installation
+
+1. Download the [latest release](https://github.com/fhtjayson2025-sys/loopy/releases)
+2. Extract to `~/.claude/plugins/loopy/`
+3. Restart Claude Code
+
+### Requirements
+
+- Claude Code CLI (latest version recommended)
+- `jq` for JSON parsing (usually pre-installed on macOS/Linux)
+- Bash 3.2+ (default on macOS/Linux)
+
+### Verify Installation
+
+After installation, run:
+```bash
+claude /help
+```
+You should see `/loopy`, `/cancel-loopy`, and `/loopy:help` in the available commands.
 
 ## Usage
 
